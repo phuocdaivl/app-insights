@@ -1,0 +1,21 @@
+{
+    "name": "phuocdaivl/app-insights",
+    "description": "Extends the Application Insights API surface to support",
+    "type": "library",
+    "require": {
+        "microsoft/application-insights": "^0.4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "DaiDP\\AppInsights\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DaiDP",
+            "email": "phuocdaivl08@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
