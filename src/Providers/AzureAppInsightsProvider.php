@@ -48,20 +48,6 @@ class AzureAppInsightsProvider extends ServiceProvider
     }
 
     /**
-     * Đăng ký tạo token authen
-     */
-    protected function registerToken()
-    {
-        $this->app->singleton('daidp.azure_noti.token', function () {
-            $conStr  = $this->config('connection_string');
-            $hubPath = $this->config('hub_path');
-            $ttl     = $this->config('token_ttl');
-
-            return new Token($conStr, $hubPath, $ttl);
-        });
-    }
-
-    /**
      * Helper to get the config values.
      *
      * @param  string  $key
