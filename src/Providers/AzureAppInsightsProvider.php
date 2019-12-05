@@ -1,7 +1,7 @@
 <?php
 namespace DaiDP\AppInsights\Providers;
 
-use ApplicationInsights\Telemetry_Client;
+use DaiDP\AppInsights\TelemetryClient;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -32,14 +32,14 @@ class AzureAppInsightsProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind('DaiDP\AppInsights\TelemetryClient', function($app) {
-            $telemetry = new Telemetry_Client();
+            $telemetry = new TelemetryClient();
             $context   = $telemetry->getContext();
 
             // Necessary
             $context->setInstrumentationKey($this->config('instrumentation_key'));
 
             // Optional
-            $context->getUserContext()->setId(auth()->id() ?: null);
+            //$context->getUserContext()->setId(auth()->check() ? auth()->id() : null);
             $context->getApplicationContext()->setVer(config('app.name'));
             $context->getLocationContext()->setIp(request()->getClientIp());
 
