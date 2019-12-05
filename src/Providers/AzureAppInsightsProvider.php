@@ -43,6 +43,11 @@ class AzureAppInsightsProvider extends ServiceProvider
             $context->getApplicationContext()->setVer(config('app.name'));
             $context->getLocationContext()->setIp(request()->getClientIp());
 
+            // Check disable tracking
+            if ($this->config('disable_tracking')) {
+                $telemetry->disableTracking();
+            }
+
             return $telemetry;
         });
     }
