@@ -39,7 +39,6 @@ class AzureAppInsightsProvider extends ServiceProvider
             $context->setInstrumentationKey($this->config('instrumentation_key'));
 
             // Optional
-            //$context->getUserContext()->setId(auth()->check() ? auth()->id() : null);
             $context->getApplicationContext()->setVer(config('app.name'));
             $context->getLocationContext()->setIp(request()->getClientIp());
 
@@ -48,6 +47,7 @@ class AzureAppInsightsProvider extends ServiceProvider
                 $telemetry->disableTracking();
             }
 
+            $telemetry->displayError($this->config('http_errors'));
             return $telemetry;
         });
     }

@@ -13,6 +13,7 @@ class TelemetryClient extends Telemetry_Client
 {
     protected $trackingAuth = true;
     protected $disableTracking = false;
+    protected $httpErrors = false;
 
     /**
      * Tắt check authen
@@ -28,6 +29,16 @@ class TelemetryClient extends Telemetry_Client
     public function disableTracking()
     {
         $this->disableTracking = true;
+    }
+
+    /**
+     * Display http error when instrumentation key is wrong
+     *
+     * @param $httpErrors
+     */
+    public function displayError($httpErrors)
+    {
+        $this->httpErrors = $httpErrors;
     }
 
     /**
@@ -55,6 +66,10 @@ class TelemetryClient extends Telemetry_Client
             return parent::flush($options = array(), $sendAsync = false);
         }
         catch (\Exception $ex) {
+            if ($this->httpErrors) {
+                throw $ex;
+            }
+
             return null;
         }
     }
