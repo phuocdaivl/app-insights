@@ -51,6 +51,11 @@ class TelemetryClient extends Telemetry_Client
             catch (\Exception $ex) {}
         }
 
-        return parent::flush($options = array(), $sendAsync = false);
+        try {
+            return parent::flush($options = array(), $sendAsync = false);
+        }
+        catch (\Exception $ex) {
+            return null;
+        }
     }
 }
